@@ -1,0 +1,59 @@
+<!-- https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_js/configuring_your_webpage_for_sign_in_with_apple -->
+
+<script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+<div id="appleid-signin" data-color="black" data-border="true" data-type="sign in"></div>
+  <script type="text/javascript">
+    AppleID.auth.init({
+        clientId : '<%= ENV['APPLE_KEY_ID'] %>',
+        scope : 'name email',
+        redirectURI : '<%= ENV['APPLE_REDIRECT_URI'] %>',
+        state : 'tvtalk',
+        usePopup : true //or false defaults to false
+    });
+  </script>
+
+  <script type="text/javascript">
+    //Listen for authorization success
+    document.addEventListener('AppleIDSignInOnSuccess', (data) => {
+        //handle successful response
+        // Note: The user object will only be presented the first time the user authorizes the application.
+        //
+        // {
+        //   "authorization": {
+        //     "state": "[STATE]",
+        //     "code": "[CODE]",
+        //     "id_token": "[ID_TOKEN]"
+        //   },
+        //   "user": {
+        //     "email": "[EMAIL]",
+        //     "name": {
+        //       "firstName": "[FIRST_NAME]",
+        //       "lastName": "[LAST_NAME]"
+        //     }
+        //   }
+        // }
+        console.log(data)
+
+        // construct an HTTP request
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "https://tvchat-api.herokuapp.com/auth/apple", true);
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+        // send the collected data as JSON
+        xhr.send(JSON.stringify(data.detail));
+
+        xhr.onloadend = function (resp) {
+          // done
+          console.log(resp)
+        };
+      });
+      
+      //Listen for authorization failures
+      document.addEventListener('AppleIDSignInOnFailure', (error) => {
+        //handle error.
+        // {
+          //    "error": "[ERROR_CODE]"
+          // }
+        console.log(error)
+    });
+</script>

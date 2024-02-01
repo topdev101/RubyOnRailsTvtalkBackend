@@ -1,0 +1,91 @@
+# == Schema Information
+#
+# Table name: shows
+#
+#  id                            :bigint           not null, primary key
+#  advisories                    :string           default([]), is an Array
+#  awards_count                  :integer          default(0)
+#  cached_votes_down             :integer          default(0)
+#  cached_votes_score            :integer          default(0)
+#  cached_votes_total            :integer          default(0)
+#  cached_votes_up               :integer          default(0)
+#  cached_weighted_average       :float            default(0.0)
+#  cached_weighted_score         :integer          default(0)
+#  cached_weighted_total         :integer          default(0)
+#  cast                          :json             is an Array
+#  comments_count                :bigint           default(0)
+#  crew                          :json             is an Array
+#  descriptionLang               :string
+#  directors                     :string           default([]), is an Array
+#  entityType                    :string
+#  episodeNum                    :integer
+#  episodeTitle                  :string
+#  episodes_count                :integer          default(0)
+#  genres                        :string           default([]), is an Array
+#  imported_news_at              :datetime
+#  likes_count                   :bigint           default(0)
+#  longDescription               :text
+#  networks_count                :bigint           default(0)
+#  officialUrl                   :text
+#  origAirDate                   :date
+#  original_streaming_network    :integer
+#  popularity_score              :integer          default(0)
+#  preferred_image_uri           :string
+#  rating_percentage_cache       :json
+#  releaseDate                   :string
+#  releaseYear                   :integer
+#  rootId                        :integer
+#  runTime                       :string
+#  seasonNum                     :integer
+#  seriesId                      :string
+#  shares_count                  :bigint           default(0)
+#  shortDescription              :text
+#  stories_count                 :bigint           default(0)
+#  subType                       :string
+#  title                         :string
+#  titleLang                     :string
+#  tmsId                         :string
+#  totalEpisodes                 :integer
+#  totalSeasons                  :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  imdb_id                       :string
+#  original_streaming_network_id :string
+#
+# Indexes
+#
+#  index_shows_on_episodes_count                         (episodes_count)
+#  index_shows_on_genres                                 (genres)
+#  index_shows_on_imported_news_at                       (imported_news_at)
+#  index_shows_on_networks_count                         (networks_count)
+#  index_shows_on_origAirDate                            (origAirDate)
+#  index_shows_on_original_streaming_network             (original_streaming_network)
+#  index_shows_on_popularity_score                       (popularity_score)
+#  index_shows_on_rootId                                 (rootId)
+#  index_shows_on_seriesId                               (seriesId)
+#  index_shows_on_tmsId                                  (tmsId) UNIQUE
+#  index_shows_on_tmsId_and_genres_and_popularity_score  (tmsId,genres,popularity_score)
+#  orignal_network_and_id                                (original_streaming_network,original_streaming_network_id) UNIQUE
+#
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  tmsId: EP123
+  rootId: 123
+# column: value
+#
+two: {}
+# column: value
+
+hulu:
+  original_streaming_network: hulu
+  title: "Handmaiden's Tale"
+  tmsId: 1234
+
+netflix:
+  original_streaming_network: netflix
+  title: 'Narcos'
+  tmsId: 12345

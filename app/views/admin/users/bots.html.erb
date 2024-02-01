@@ -1,0 +1,46 @@
+<style>
+  body: {
+    margin: 0;
+    padding: 0;
+  }
+  #bots-container {
+    background-color: #000;
+    text-align: center;
+    height: 40px;
+  }
+  #bots {
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  #iframe {
+    width: 100%;
+    height: calc(100vh - 40px);
+    border: 0;
+  }
+</style>
+
+<div id="bots-container">
+  <select id="bots" name="bots">
+    <option>Select a Bot</option>
+    <% @users.each do |user| %>
+      <option value="<%= @jwts[user.id] %>">
+        <%= user.username %>
+      </option>
+    <% end %>
+  </select>
+</div>
+
+<iframe id="iframe" src="https://tvtalk.app"></iframe>
+
+<script>
+  // Bot selection
+  var botSelect = document.getElementById('bots');
+  var iframe = document.getElementById('iframe');
+
+  botSelect.addEventListener('change', function(event,b) {
+    var apiKey = event.target.value;
+    // var url = 'https://tvtalk.app/guide'
+    iframe.contentWindow.postMessage({ token: apiKey }, 'https://tvtalk.app')
+  })
+</script>

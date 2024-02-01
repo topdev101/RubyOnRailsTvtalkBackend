@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: networks
+#
+#  id           :bigint           not null, primary key
+#  display_name :string
+#  name         :string
+#  streaming    :boolean          default(FALSE)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  station_id   :string
+#
+# Indexes
+#
+#  index_networks_on_name  (name) UNIQUE
+#
+
+one:
+  name: NBCHD
+  display_name: NBC
+  streaming: false
+
+two:
+  name: ABCHD
+  display_name: ABC
+  streaming: false

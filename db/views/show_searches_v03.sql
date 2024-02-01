@@ -1,0 +1,1 @@
+SELECT "title", "id", "tmsId", "preferred_image_uri", "releaseYear", "genres", "subType", "cast", "popularity_score", LOWER(title) as "lower_title" FROM "shows" WHERE "shows"."subType" IN ('Feature Film', 'Series', 'TV Movie') AND "shows"."tmsId" IS NOT NULL AND NOT ("tmsId" like 'EP%')
